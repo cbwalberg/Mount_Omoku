@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Shizennoki_Hatchling_SS.png-e1e40b58f91c49bb97b19044f15fcf0f.stex"
+path="res://.import/Shizennoki_Hatchling_SS.png-bfda681b3f0215b56fdb7d3cb93a7347.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpriteSheets/Shizennoki_Hatchling_SS.png"
-dest_files=[ "res://.import/Shizennoki_Hatchling_SS.png-e1e40b58f91c49bb97b19044f15fcf0f.stex" ]
+source_file="res://SpriteSheets/Shizennoki/Shizennoki_Hatchling_SS.png"
+dest_files=[ "res://.import/Shizennoki_Hatchling_SS.png-bfda681b3f0215b56fdb7d3cb93a7347.stex" ]
 
 [params]
 
