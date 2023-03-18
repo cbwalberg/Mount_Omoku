@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://SpriteSheets/Shizennoki_Hatchling_SS.png" type="Texture" id=1]
+[ext_resource path="res://SpriteSheets/Shizennoki/Shizennoki_Hatchling_SS.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Shizennoki/Shizennoki_Hatchling.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -50,11 +51,17 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="KinematicBody2D" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 977.5, 296 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
 animation = "fly"
-frame = 5
-speed_scale = 2.0
-playing = true
+speed_scale = 1.65
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 22.5, 10 )
+shape = SubResource( 10 )
