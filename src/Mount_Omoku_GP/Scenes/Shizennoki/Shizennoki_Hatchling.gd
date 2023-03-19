@@ -2,13 +2,17 @@ extends KinematicBody2D
 
 
 export (float, 1, 1000) var horizontal_speed: float = 10
-export (float, 1, 500) var vertical_speed: float = 5
-export (float, 1, 100) var wave: float = TAU # TAU  = PI * 2
+export (float, 1, 500) var vertical_speed: float = 10
 export (float, 0, 1000) var amplitude: float = 5
+export (float, 0, 1000) var frequency: float = TAU
+export (float, 1, 100) var wavelength: float = TAU * 5 # = 10PI
+export (float, 1, 100) var wavenumber: float = TAU / wavelength # = k; TAU = 2PI
+
 
 var time : float = 0
 var directional_input = Vector2()
 var velocity = Vector2()
+var collision_results: KinematicCollision2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -30,10 +34,11 @@ func _process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # PHYSICS
 func _physics_process(delta):
-	
+	time += delta
+
 	# REF: Traditional up, down, left, right movement using constant speeds
-	# velocity.x = directional_input.x * speed
-	# velocity.y = directional_input.y * climb_speed
+	# velocity.x = directional_input.x * horizontal_speed * delta
+	# velocity.y = directional_input.y * vertical_speed * delta
 	# END REF
 	
 	# Transverse harmonic wave movement
@@ -41,27 +46,26 @@ func _physics_process(delta):
 	# 		https://animations.physics.unsw.edu.au/jw/travelling_sine_wave.htm#phase
 	#		https://www.compadre.org/osp/EJSS/4470/255.htm (Advanced Questions)
 
-	# y(x,t) = A sin (k x - ω t + φ)		y = position.y
-	# y'(x, t) = -Aω cos (k x - ω t + φ) 	y' = velocity.y
+	# y(x,t) = A sin (k x - ω t) + vertical shift
+	# y'(x, t) = -Aω cos (k x - ω t) + vertical shift
 	
-	# y = vertical position of coord on the wave (position.y)
-	# x = horizontal position of coord on the wave (position.x) 
+	# y = a length: the displacement (from origin) of the string the wave oscillates around
+	# x = also a length: the position along the string
 	# t = time
-	# A = amplitude, k = wave = 2PI (assuming λ = 1), v = horizontal velocity, ω = k * v, t = delta, φ = vertical displacement (constant up/down speed)
+	# y', x' = ???
+	# A = amplitude, k = wavenumber, ω = frequency
 
-	if directional_input.x != 0:
-		# constant forward/backward speed
-		velocity.x = directional_input.x * horizontal_speed
-	else:
-		velocity.x = 0
+	velocity.x = directional_input.x * horizontal_speed * delta		# constant forward/backward speed
+	
+	# if velocity.x == 0:
+		# velocity.y = 
+	# y = amplitude * sin(wavenumber * position.x - wave * velocity.x * time + directional_input.y * vertical_speed * delta)	
+	velocity.y = - amplitude * frequency * cos(wavenumber * position.x - frequency * time) + (directional_input.y * vertical_speed * delta)
 
-	if directional_input.y != 0:
-		# y = amplitude * sin(wave * position.x - wave * velocity.x * time + directional_input.y * vertical_speed)
-		velocity.y = -amplitude * wave * velocity.x * cos(wave * position.x - wave * velocity.x * delta + directional_input.y)
-	else:
-		velocity.y = 0
-
-	velocity = move_and_slide(velocity)
+	collision_results = move_and_collide(velocity)
+	
+	# if collision_results:
+	# 	TODO: Process collision
 	
 
 # Receive and normalize player input
