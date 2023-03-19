@@ -1,9 +1,9 @@
 extends KinematicBody2D
 
 
-export (float, 1, 1000) var horizontal_speed: float = 10
-export (float, 1, 500) var vertical_speed: float = 10
-export (float, 0, 1000) var amplitude: float = 5
+export (float, 1, 1000) var horizontal_speed: float = 50
+export (float, 1, 500) var vertical_speed: float = 50
+export (float, 0, 1000) var amplitude: float = 100
 export (float, 0, 1000) var frequency: float = TAU
 export (float, 1, 100) var wavelength: float = TAU * 5 # = 10PI
 export (float, 1, 100) var wavenumber: float = TAU / wavelength # = k; TAU = 2PI
@@ -56,11 +56,7 @@ func _physics_process(delta):
 	# A = amplitude, k = wavenumber, ω = frequency
 
 	velocity.x = directional_input.x * horizontal_speed * delta		# constant forward/backward speed
-	
-	# if velocity.x == 0:
-		# velocity.y = 
-	# y = amplitude * sin(wavenumber * position.x - wave * velocity.x * time + directional_input.y * vertical_speed * delta)	
-	velocity.y = - amplitude * frequency * cos(wavenumber * position.x - frequency * time) + (directional_input.y * vertical_speed * delta)
+	velocity.y = (-amplitude * frequency * cos(wavenumber * velocity.x - frequency * time) + (directional_input.y * vertical_speed)) * delta
 
 	collision_results = move_and_collide(velocity)
 	

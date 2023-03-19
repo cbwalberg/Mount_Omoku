@@ -61,6 +61,7 @@ script = ExtResource( 2 )
 frames = SubResource( 9 )
 animation = "fly"
 speed_scale = 1.65
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 22.5, 10 )
