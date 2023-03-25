@@ -1,16 +1,19 @@
 extends KinematicBody2D
 
 
-export (float, 1, 10000) var horizontal_speed: float = 1250
-export (float, 1, 10000) var vertical_speed: float = 950
-export (float, 0, 1000) var amplitude: float = 50
+export (float, 1, 5000) var max_horizontal_speed: float = 1250
+export (float, 1, 5000) var max_vertical_speed: float = 950
+export (float, 1, 5) var acceleration: float = 1.2
+export (float, 1, 5) var rotation_step: float = 2.5
+export (float, 0, 1000) var max_amplitude: float = 50
 export (float, 0, 6.283) var frequency: float = TAU
 export (float, 0, 3.142) var phase: float = PI / 2	# phase constant 
 export (float, 1, 100) var wavelength: float = TAU	# TAU = 2PI # = λ
 export (float, 1, 100) var wavenumber: float = TAU / wavelength	# = k 
 
-
+var last_pressed: int = 1 # 1=Right, -1=Left
 var time : float = 0
+var velocity_y_offset: float = 0
 var directional_input = Vector2()
 var velocity = Vector2()
 var collision_results: KinematicCollision2D
@@ -45,8 +48,16 @@ func _physics_process(delta):
 # TODO: Interruptions
 func process_input():
 	directional_input = Vector2.ZERO
-	directional_input.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	directional_input.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+	if Input.is_action_pressed("right"):
+		last_pressed = 1
+		directional_input.x = 1
+	if Input.is_action_pressed("left"):
+		last_pressed = -1 
+		directional_input.x = -1
+	if Input.is_action_pressed("down"):
+		directional_input.y = 1
+	if Input.is_action_pressed("up"):
+		directional_input.y = -1
 	directional_input = directional_input.normalized()
 
 
@@ -69,27 +80,38 @@ func move(delta):
 	
 	# harmonic wave along y axis (switch x and y), no offset
 	if directional_input.angle() == Vector2.DOWN.angle() || directional_input.angle() == Vector2.UP.angle():
-		velocity.x = - amplitude * frequency * cos(wavenumber * velocity.y - frequency * time + phase)
-		velocity.y = directional_input.y * vertical_speed	# constant up/down speed
+		velocity.x = -max_amplitude * frequency * cos(wavenumber * directional_input.y * max_vertical_speed - frequency * time + phase)
+		velocity.y = lerp(velocity.y, directional_input.y * max_vertical_speed, acceleration) # lerp to accelerate up to max veritcal speed
 	else: # traiditonal harmonic wave along x axis, adding vertical offset
-		velocity.x = directional_input.x * horizontal_speed	# constant forward/backward speed
-		velocity.y = - amplitude * frequency * cos(wavenumber * velocity.x - frequency * time + phase) + (directional_input.y * vertical_speed)
+		velocity.x = lerp(velocity.x, directional_input.x * max_horizontal_speed, acceleration * delta) # lerp to accelerate up to max horizontal speed
+		velocity_y_offset = lerp(velocity_y_offset, directional_input.y * max_vertical_speed, acceleration * delta) # lerp to accelerate up to max vertical offset speed
+		velocity.y = -max_amplitude * frequency * cos(wavenumber * directional_input.x * max_horizontal_speed - frequency * time + phase) + velocity_y_offset
 
-	# Clockwise rotation beginning at 0 (or 2PI) radians, or 3 on a clock
+	# Rotate based on direction and velocity
 	if directional_input == Vector2.ZERO:
-		$AnimatedSprite.flip_v = false
-		look_at(position + Vector2.RIGHT.rotated(Vector2(horizontal_speed, velocity.y).angle()))
+		if last_pressed == 1:
+			$AnimatedSprite.flip_v = false
+			# rotation = lerp_angle(rotation, Vector2(max_horizontal_speed, velocity.y).angle(), delta * rotation_step)
+			look_at(position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()))
+		else: # last_pressed == -1
+			$AnimatedSprite.flip_v = true
+			# rotation = lerp_angle(rotation, Vector2(-max_horizontal_speed, velocity.y).angle(), delta * rotation_step)
+			look_at(position + Vector2.LEFT.rotated(Vector2(-max_horizontal_speed, velocity.y).angle() - Vector2.LEFT.angle()))
 	if (directional_input.x > 0 && directional_input.y > 0) || (directional_input.x > 0 && directional_input.y == 0):
-		$AnimatedSprite.flip_v = false
-		look_at(position + Vector2.RIGHT.rotated(velocity.angle()))
+		if velocity.x > 0: $AnimatedSprite.flip_v = false
+		# rotation = lerp_angle(rotation, velocity.angle(), delta * rotation_step)
+		look_at(position + Vector2.RIGHT.rotated(velocity.angle()))	
 	if (directional_input.x < 0 && directional_input.y > 0)  || (directional_input.x == 0 && directional_input.y > 0):
-		$AnimatedSprite.flip_v = true
+		if last_pressed == -1: $AnimatedSprite.flip_v = true
+		# rotation = lerp_angle(rotation, velocity.angle(), delta * rotation_step)
 		look_at(position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())))
 	if (directional_input.x < 0 && directional_input.y < 0)  || (directional_input.x < 0 && directional_input.y == 0):
 		$AnimatedSprite.flip_v = true
+		# rotation = lerp_angle(rotation, velocity.angle(), delta * rotation_step)
 		look_at(position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())))
 	if (directional_input.x > 0 && directional_input.y < 0)  || (directional_input.x == 0 && directional_input.y < 0) :
-		$AnimatedSprite.flip_v = false
+		if last_pressed == 1: $AnimatedSprite.flip_v = false
+		# rotation = lerp_angle(rotation, velocity.angle(), delta * rotation_step)
 		look_at(position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())))
 
 	# TODO: Accelerate up to top speed
