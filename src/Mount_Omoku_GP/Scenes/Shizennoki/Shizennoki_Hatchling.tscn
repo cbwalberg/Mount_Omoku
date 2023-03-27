@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_SS.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Shizennoki/Shizennoki_Hatchling.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Shizennoki_Hatchling.gd" type="Script" id=2]
 [ext_resource path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_Head_SS.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
