@@ -48,6 +48,8 @@ func _physics_process(delta):
 # TODO: Interruptions
 func process_input():
 	directional_input = Vector2.ZERO
+	
+	# TODO: Lerp directional input for further turn smoothing?
 	if Input.is_action_pressed("right"):
 		directional_input.x = 1
 	if Input.is_action_pressed("left"):
