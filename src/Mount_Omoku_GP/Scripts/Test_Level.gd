@@ -1,7 +1,7 @@
 extends Node2D
 
 
-export (int, 25, 100) var debug_draw_length: int = 75 # length of draw_points array
+export (int, 25, 100) var debug_draw_length: int = 60 # length of draw_points array
 export (int, 10, 250) var debug_draw_width: int = 100
 
 
