@@ -1,21 +1,24 @@
 extends KinematicBody2D
 
 
-export (float, 1, 5000) var max_horizontal_speed: float = 1500
-export (float, 1, 5000) var max_vertical_speed: float = max_horizontal_speed
-export (float, 1, 5) var acceleration: float = 5
-export (float, 1, 5) var rotation_step: float = 0.7
-export (float, 0, 1000) var max_amplitude: float = 150
-export (float, 0, 6.283) var frequency: float = TAU
-export (float, 0, 3.142) var phase: float = PI / 2	# phase constant 
-export (float, 1, 100) var wavelength: float = TAU	# TAU = 2PI # = λ
-export (float, 1, 100) var wavenumber: float = TAU / wavelength	# = k 
+export (float, 1, 5000) var max_horizontal_speed : float = 1500
+export (float, 1, 5000) var max_vertical_speed : float = max_horizontal_speed
+export (float, 1, 5) var acceleration : float = 5
+export (float, 1, 5) var rotation_step : float = 0.7
+export (float, 0, 1000) var max_amplitude : float = 150
+export (float, 0, 6.283) var frequency : float = TAU
+export (float, 0, 3.142) var phase : float = 0	# phase constant 
+export (float, 1, 100) var wavelength : float = TAU	# TAU = 2PI # = λ
+export (float, 1, 100) var wavenumber : float = TAU / wavelength	# = k 
 
 var time : float = 0
+var velocity_y_offset : float = 0
+var amplitude : float = 0
 var max_horizontal_velocity : float = 0
 var max_vertical_velocity : float = 0
-var velocity_y_offset: float = 0
+var max_vertical_offset : float = 0
 var directional_input = Vector2()
+var current_direction = Vector2()
 var velocity = Vector2()
 var collision_results: KinematicCollision2D
 
@@ -40,16 +43,14 @@ func _process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # PHYSICS
 func _physics_process(delta):
-	move(delta)
+	move_and_rotate(delta)
 
 
 # Receive and normalize player input: WASD or Arrow Keys
 # Called by _physics_process
-# TODO: Interruptions
 func process_input():
 	directional_input = Vector2.ZERO
-	
-	# TODO: Lerp directional input for further turn smoothing?
+
 	if Input.is_action_pressed("right"):
 		directional_input.x = 1
 	if Input.is_action_pressed("left"):
@@ -58,11 +59,12 @@ func process_input():
 		directional_input.y = 1
 	if Input.is_action_pressed("up"):
 		directional_input.y = -1
+
 	directional_input = directional_input.normalized()
 
 
 # Called by _physics_process
-func move(delta):
+func move_and_rotate(delta):
 	#==========================================================================================
 	#	CALCULATE VELOCITY
 	#==========================================================================================
@@ -80,12 +82,19 @@ func move(delta):
 	#==========================================================================================
 	time += delta
 	
+	# lerp = linear interpretation. used to accelerate from base to goal by rate
+	current_direction = lerp(current_direction, directional_input, acceleration * 2 * delta)
+	if current_direction != Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, delta)
+	else: amplitude = lerp(amplitude, max_amplitude, delta)
+	print(current_direction)
+	
 	# harmonic wave along y axis (switch x and y), no offset, when moving straight up or down
+	# TODO: use current_direction in place of directional_input
 	if directional_input == Vector2.DOWN || directional_input == Vector2.UP:
-		max_horizontal_velocity = -max_amplitude * frequency * cos(wavenumber * directional_input.y * max_vertical_speed - frequency * time + phase) # velocity x = x'(y, t)
 		max_vertical_velocity = directional_input.y * max_vertical_speed
+		max_horizontal_velocity = -amplitude * frequency * cos(wavenumber * max_vertical_velocity - frequency * time + phase) # velocity x = x'(y, t)
 		
-		velocity.x = lerp( # lerp = linear interpretation. used to accelerate from base to goal by rate
+		velocity.x = lerp( 
 			velocity.x, # base
 			max_horizontal_velocity, # goal
 			acceleration * delta) # rate
@@ -97,16 +106,18 @@ func move(delta):
 
 	else:	# traditonal harmonic wave along x axis, adding vertical offset
 		max_horizontal_velocity = directional_input.x * max_horizontal_speed
-		max_vertical_velocity = -max_amplitude * frequency * cos(wavenumber * directional_input.x * max_horizontal_speed - frequency * time + phase) + velocity_y_offset # velocity y = y'(x, t)
+		max_vertical_offset = directional_input.y * max_vertical_speed
+		
+		velocity_y_offset = lerp(
+			velocity_y_offset, 
+			max_vertical_offset, 
+			acceleration * delta)
+		
+		max_vertical_velocity = -amplitude * frequency * cos(wavenumber * max_horizontal_velocity - frequency * time + phase) + velocity_y_offset # velocity y = y'(x, t)
 
 		velocity.x = lerp(
 			velocity.x,
 			max_horizontal_velocity,
-			acceleration * delta)
-
-		velocity_y_offset = lerp(
-			velocity_y_offset, 
-			directional_input.y * max_vertical_speed, 
 			acceleration * delta)
 
 		velocity.y = lerp(
@@ -114,9 +125,11 @@ func move(delta):
 			max_vertical_velocity,
 			acceleration * delta)
 
-	#=============================
-	#	ROTATE; smoothing WIP
-	#=============================
+	#======================================
+	#	ROTATE 
+	#	smooth_look_at args are WIP
+	#	TODO: use current_direction in place of directional_input
+	#======================================
 	if directional_input == Vector2.ZERO: # NO INPUT
 		if !$AnimatedSprite.flip_v: # If looking left
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
