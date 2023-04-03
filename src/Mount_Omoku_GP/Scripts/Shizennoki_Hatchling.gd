@@ -18,7 +18,6 @@ var max_horizontal_velocity : float = 0
 var max_vertical_velocity : float = 0
 var max_vertical_offset : float = 0
 var directional_input = Vector2()
-var current_direction = Vector2()
 var velocity = Vector2()
 var collision_results: KinematicCollision2D
 
@@ -76,60 +75,39 @@ func move_and_rotate(delta):
 	# 	y(x,t) = A sin (k x - ω t + φ) 	(plus player input vertical shift)
 	# 	y'(x, t) = -Aω cos (k x - ω t + φ)	(plus player input vertical shift)
 	#
-	# 	y = a length: the displacement (from origin) of the string the wave oscillates around
-	# 	x = also a length: the position along the string
+	# 	y = the displacement (from origin) of the string the wave oscillates around
+	# 	x = the position along the string
+	#	x' and y' = velocity of x and y respectively
 	# 	t = time, A = amplitude, k = wavenumber, ω = frequency, φ = phase constant
 	#==========================================================================================
 	time += delta
 	
-	# lerp = linear interpretation. used to accelerate from base to goal by rate
-	current_direction = lerp(current_direction, directional_input, acceleration * 2 * delta)
-	if current_direction != Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, delta)
-	else: amplitude = lerp(amplitude, max_amplitude, delta)
-	print(current_direction)
+	# lerp = linear interpretation: used to accelerate from BASE to GOAL by RATE
+	if directional_input == Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, acceleration * delta)
+	else: amplitude = lerp(amplitude, max_amplitude, acceleration * delta)
 	
-	# harmonic wave along y axis (switch x and y), no offset, when moving straight up or down
-	# TODO: use current_direction in place of directional_input
+	# when moving straight up or down we want the wave to move along the y axis (switch x and y) w/o offset 
 	if directional_input == Vector2.DOWN || directional_input == Vector2.UP:
 		max_vertical_velocity = directional_input.y * max_vertical_speed
 		max_horizontal_velocity = -amplitude * frequency * cos(wavenumber * max_vertical_velocity - frequency * time + phase) # velocity x = x'(y, t)
 		
-		velocity.x = lerp( 
-			velocity.x, # base
-			max_horizontal_velocity, # goal
-			acceleration * delta) # rate
+		velocity.x = lerp(velocity.x, max_horizontal_velocity, acceleration * delta)
+		velocity.y = lerp(velocity.y, max_vertical_velocity, acceleration * delta)
 
-		velocity.y = lerp(
-			velocity.y, 
-			max_vertical_velocity, 
-			acceleration * delta)
-
-	else:	# traditonal harmonic wave along x axis, adding vertical offset
+	# traditonal harmonic wave movement along x axis, adding vertical offset
+	else:	
 		max_horizontal_velocity = directional_input.x * max_horizontal_speed
 		max_vertical_offset = directional_input.y * max_vertical_speed
-		
-		velocity_y_offset = lerp(
-			velocity_y_offset, 
-			max_vertical_offset, 
-			acceleration * delta)
-		
+		velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, acceleration * delta)
 		max_vertical_velocity = -amplitude * frequency * cos(wavenumber * max_horizontal_velocity - frequency * time + phase) + velocity_y_offset # velocity y = y'(x, t)
 
-		velocity.x = lerp(
-			velocity.x,
-			max_horizontal_velocity,
-			acceleration * delta)
+		velocity.x = lerp(velocity.x, max_horizontal_velocity, acceleration * delta)
+		velocity.y = lerp(velocity.y, max_vertical_velocity, acceleration * delta)
 
-		velocity.y = lerp(
-			velocity.y,
-			max_vertical_velocity,
-			acceleration * delta)
-
-	#======================================
+	#===================================================================
 	#	ROTATE 
-	#	smooth_look_at args are WIP
-	#	TODO: use current_direction in place of directional_input
-	#======================================
+	#	TODO: Improve smoothing; reconsider smooth_look_at targetPos arg
+	#===================================================================
 	if directional_input == Vector2.ZERO: # NO INPUT
 		if !$AnimatedSprite.flip_v: # If looking left
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
@@ -178,7 +156,7 @@ func move_and_rotate(delta):
 
 
 #================================================
-# 	Custom Look At function that smooths rotation
+# 	Custom look_at function that smooths rotation
 #================================================
 #   REF: https://www.reddit.com/r/godot/comments/e16krk/smooth_look_at_for_2d/
 #	
@@ -192,16 +170,7 @@ func move_and_rotate(delta):
 #   X+ is assumed to be the forward direction of the node
 #================================================
 func smooth_look_at(node, targetPos, turnSpeed):
-	node.rotate(
-		deg2rad(
-			angular_look_at(
-				node.global_position, 
-				node.global_rotation, 
-				targetPos, 
-				turnSpeed
-			)
-		)
-	)
+	node.rotate(deg2rad(angular_look_at(node.global_position, node.global_rotation, targetPos, turnSpeed)))
 
 
 # Supporting functions for from smooth_look_at
