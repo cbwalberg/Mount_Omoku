@@ -1,8 +1,8 @@
 extends Node2D
 
 
-export (int, 25, 100) var debug_draw_length: int = 60 # length of draw_points array
-export (int, 10, 250) var debug_draw_width: int = 100
+@export var debug_draw_length: int = 60 # length of draw_points array
+@export var debug_draw_width: int = 100
 
 
 var draw_points = [] # array containg snapshots of player position in time for debug drawing
@@ -26,9 +26,9 @@ func _on_DrawTimer_timeout():
 	force_update_transform() # force physics engine to update transform values for use in code
 	draw_points.push_front($Player.global_position)
 	if draw_points.size() > debug_draw_length: draw_points.pop_back()
-	update() # calls _draw()
+	queue_redraw() # calls _draw()
 
 
 # Draw on the canvas
 func _draw():
-	if draw_points.size() > 1: draw_polyline(draw_points, Color.cadetblue, debug_draw_width) 
+	if draw_points.size() > 1: draw_polyline(draw_points, Color.CADET_BLUE, debug_draw_width) 

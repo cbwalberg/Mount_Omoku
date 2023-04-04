@@ -1,15 +1,15 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
 
-export (float, 1, 5000) var max_horizontal_speed : float = 1500
-export (float, 1, 5000) var max_vertical_speed : float = max_horizontal_speed
-export (float, 1, 5) var acceleration : float = 5
-export (float, 1, 5) var rotation_step : float = 0.7
-export (float, 0, 1000) var max_amplitude : float = 150
-export (float, 0, 6.283) var frequency : float = TAU
-export (float, 0, 3.142) var phase : float = 0	# phase constant 
-export (float, 1, 100) var wavelength : float = TAU	# TAU = 2PI # = λ
-export (float, 1, 100) var wavenumber : float = TAU / wavelength	# = k 
+@export var max_horizontal_speed : float = 500
+@export var max_vertical_speed : float = 500
+@export var acceleration : float = 5
+@export var rotation_step : float = 0.7
+@export var max_amplitude : float = 50
+@export var frequency : float = TAU
+@export var phase : float = 0	# phase constant 
+@export var wavelength : float = TAU	# TAU = 2PI # = λ
+@export var wavenumber : float = TAU / wavelength	# = k 
 
 var time : float = 0
 var velocity_y_offset : float = 0
@@ -18,7 +18,6 @@ var max_horizontal_velocity : float = 0
 var max_vertical_velocity : float = 0
 var max_vertical_offset : float = 0
 var directional_input = Vector2()
-var velocity = Vector2()
 var collision_results: KinematicCollision2D
 
 
@@ -109,19 +108,19 @@ func move_and_rotate(delta):
 	#	TODO: Improve smoothing; reconsider smooth_look_at targetPos arg
 	#===================================================================
 	if directional_input == Vector2.ZERO: # NO INPUT
-		if !$AnimatedSprite.flip_v: # If looking left
+		if !$AnimatedSprite2D.flip_v: # If looking left
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
-		if $AnimatedSprite.flip_v: # If looking right
+		if $AnimatedSprite2D.flip_v: # If looking right
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(-max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
 
 	if directional_input.x > 0 && directional_input.y == 0: # RIGHT
 		if velocity.x > 0: 
-			$AnimatedSprite.flip_v = false
+			$AnimatedSprite2D.flip_v = false
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)
 
 	if directional_input.x > 0 && directional_input.y > 0: # DOWN RIGHT
 		if velocity.x > 0: 
-			$AnimatedSprite.flip_v = false
+			$AnimatedSprite2D.flip_v = false
 			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)	
 
 	if directional_input.x == 0 && directional_input.y > 0: # DOWN
@@ -129,17 +128,17 @@ func move_and_rotate(delta):
 
 	if directional_input.x < 0 && directional_input.y > 0: # DOWN LEFT
 		if velocity.x < 0: 
-			$AnimatedSprite.flip_v = true
+			$AnimatedSprite2D.flip_v = true
 			smooth_look_at($".", global_position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())), rotation_step * delta)
 
 	if directional_input.x < 0 && directional_input.y == 0: # LEFT
 		if velocity.x < 0: 
-			$AnimatedSprite.flip_v = true
+			$AnimatedSprite2D.flip_v = true
 			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
 
 	if directional_input.x < 0 && directional_input.y < 0: # UP LEFT
 		if velocity.x < 0: 
-			$AnimatedSprite.flip_v = true
+			$AnimatedSprite2D.flip_v = true
 			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
 
 	if directional_input.x == 0 && directional_input.y < 0: # UP
@@ -147,7 +146,7 @@ func move_and_rotate(delta):
 
 	if directional_input.x > 0 && directional_input.y < 0: # UP RIGHT
 		if velocity.x > 0: 
-			$AnimatedSprite.flip_v = false
+			$AnimatedSprite2D.flip_v = false
 			smooth_look_at($".", global_position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())), rotation_step * delta)
 
 	# TODO: Process collision
@@ -170,7 +169,7 @@ func move_and_rotate(delta):
 #   X+ is assumed to be the forward direction of the node
 #================================================
 func smooth_look_at(node, targetPos, turnSpeed):
-	node.rotate(deg2rad(angular_look_at(node.global_position, node.global_rotation, targetPos, turnSpeed)))
+	node.rotate(deg_to_rad(angular_look_at(node.global_position, node.global_rotation, targetPos, turnSpeed)))
 
 
 # Supporting functions for from smooth_look_at
