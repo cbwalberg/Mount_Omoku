@@ -6,7 +6,6 @@
 
 [node name="Test_Level" type="Node2D"]
 script = ExtResource("2")
-debug_draw_length = 50
 debug_draw_width = 10
 
 [node name="PlayerStartPos" type="Marker2D" parent="."]

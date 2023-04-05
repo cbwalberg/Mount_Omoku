@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 
-@export var max_horizontal_speed : float = 500
-@export var max_vertical_speed : float = 500
-@export var acceleration : float = 5
+@export var max_horizontal_speed : float = 800
+@export var max_vertical_speed : float = 800
+@export var linear_acceleration: float = 5
 @export var rotation_step : float = 0.7
-@export var max_amplitude : float = 50
+@export var max_amplitude : float = 75
 @export var frequency : float = TAU
 @export var phase : float = 0	# phase constant 
 @export var wavelength : float = TAU	# TAU = 2PI # = λ
@@ -13,6 +13,7 @@ extends CharacterBody2D
 
 var time : float = 0
 var velocity_y_offset : float = 0
+var wave_acceleration : float = 0
 var amplitude : float = 0
 var max_horizontal_velocity : float = 0
 var max_vertical_velocity : float = 0
@@ -71,8 +72,9 @@ func move_and_rotate(delta):
 	# 	https://animations.physics.unsw.edu.au/jw/travelling_sine_wave.htm#phase
 	# 	https://www.compadre.org/osp/EJSS/4470/255.htm (Advanced Questions)
 	#
-	# 	y(x,t) = A sin (k x - ω t + φ) 	(plus player input vertical shift)
-	# 	y'(x, t) = -Aω cos (k x - ω t + φ)	(plus player input vertical shift)
+	# 	position:		y(x,t) 	 = A sin (k x - ω t + φ)
+	# 	velocity:		y'(x, t) = -Aω cos (k x - ω t + φ)
+	#	acceleration: 	y"(x, t) = -Aωω sin (k x - ω t + φ)
 	#
 	# 	y = the displacement (from origin) of the string the wave oscillates around
 	# 	x = the position along the string
@@ -82,26 +84,31 @@ func move_and_rotate(delta):
 	time += delta
 	
 	# lerp = linear interpretation: used to accelerate from BASE to GOAL by RATE
-	if directional_input == Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, acceleration * delta)
-	else: amplitude = lerp(amplitude, max_amplitude, acceleration * delta)
-	
+	# TODO: account for starting motion AND stopping motion
+	if directional_input == Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, linear_acceleration * delta)
+	else: amplitude = lerp(amplitude, max_amplitude, linear_acceleration * delta)
+	ssssjjjjj
 	# when moving straight up or down we want the wave to move along the y axis (switch x and y) w/o offset 
 	if directional_input == Vector2.DOWN || directional_input == Vector2.UP:
 		max_vertical_velocity = directional_input.y * max_vertical_speed
-		max_horizontal_velocity = -amplitude * frequency * cos(wavenumber * max_vertical_velocity - frequency * time + phase) # velocity x = x'(y, t)
+		max_horizontal_velocity = -amplitude * frequency * cos(wavenumber * max_vertical_velocity - frequency * time + phase) # velocity.x = x'(y, t)
+		# TODO: NOT WORKING # wave_acceleration = -amplitude * frequency * frequency * sin(wavenumber * max_vertical_velocity - frequency * time + phase) # acceleration.x = x"(y, t)
 		
-		velocity.x = lerp(velocity.x, max_horizontal_velocity, acceleration * delta)
-		velocity.y = lerp(velocity.y, max_vertical_velocity, acceleration * delta)
+		velocity.x = lerp(velocity.x, max_horizontal_velocity, linear_acceleration * delta)
+		velocity.y = lerp(velocity.y, max_vertical_velocity, linear_acceleration * delta)
 
 	# traditonal harmonic wave movement along x axis, adding vertical offset
 	else:	
-		max_horizontal_velocity = directional_input.x * max_horizontal_speed
+		# TODO: Ask Louie about how to calculate + incorporate velocity_y_offset
 		max_vertical_offset = directional_input.y * max_vertical_speed
-		velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, acceleration * delta)
+		velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, linear_acceleration * delta)
+		
+		max_horizontal_velocity = directional_input.x * max_horizontal_speed
 		max_vertical_velocity = -amplitude * frequency * cos(wavenumber * max_horizontal_velocity - frequency * time + phase) + velocity_y_offset # velocity y = y'(x, t)
-
-		velocity.x = lerp(velocity.x, max_horizontal_velocity, acceleration * delta)
-		velocity.y = lerp(velocity.y, max_vertical_velocity, acceleration * delta)
+		# TODO: NOT WORKING # wave_acceleration = -amplitude * frequency * frequency * sin(wavenumber * max_horizontal_velocity - frequency * time + phase)
+		
+		velocity.x = lerp(velocity.x, max_horizontal_velocity, linear_acceleration * delta)
+		velocity.y = lerp(velocity.y, max_vertical_velocity, linear_acceleration * delta)
 
 	#===================================================================
 	#	ROTATE 
