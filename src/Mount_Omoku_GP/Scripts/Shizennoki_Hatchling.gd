@@ -1,24 +1,34 @@
 extends CharacterBody2D
 
 
-@export var max_horizontal_speed : float = 800
-@export var max_vertical_speed : float = 800
-@export var linear_acceleration: float = 5
-@export var rotation_step : float = 0.7
-@export var max_amplitude : float = 75
-@export var frequency : float = TAU
+# Direction & Rotation
+@export var rotation_step : float = 0.7		# @export: variables exposed to engine editor for live testing
+var directional_input = Vector2()
+
+
+# Linear Speed
+@export var max_horizontal_speed : float = 1250 # meters / second
+@export var max_vertical_speed : float = 1250	# meters / second
+@export var linear_acceleration: float = 3
+
+var velocity_y_offset : float
+var max_vertical_offset : float
+var max_vertical_velocity : float
+var max_horizontal_velocity : float
+
+# Wave Speed
+@export var max_amplitude : float = 75 	# wave height
+@export var frequency : float = TAU 	# TAU = 2*PI; cycles per second
 @export var phase : float = 0	# phase constant 
-@export var wavelength : float = TAU	# TAU = 2PI # = λ
+@export var wavelength : float = TAU 	# how far the wave has traveled after one cycle
 @export var wavenumber : float = TAU / wavelength	# = k 
 
 var time : float = 0
-var velocity_y_offset : float = 0
-var wave_acceleration : float = 0
-var amplitude : float = 0
-var max_horizontal_velocity : float = 0
-var max_vertical_velocity : float = 0
-var max_vertical_offset : float = 0
-var directional_input = Vector2()
+var amplitude : float
+var wave_acceleration : float
+
+
+# Collision
 var collision_results: KinematicCollision2D
 
 
@@ -42,7 +52,9 @@ func _process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # PHYSICS
 func _physics_process(delta):
-	move_and_rotate(delta)
+	turn(delta) # TODO: Test turning before moving
+	move(delta)
+	collide()
 
 
 # Receive and normalize player input: WASD or Arrow Keys
@@ -63,7 +75,7 @@ func process_input():
 
 
 # Called by _physics_process
-func move_and_rotate(delta):
+func move(delta):
 	#==========================================================================================
 	#	CALCULATE VELOCITY
 	#==========================================================================================
@@ -72,7 +84,7 @@ func move_and_rotate(delta):
 	# 	https://animations.physics.unsw.edu.au/jw/travelling_sine_wave.htm#phase
 	# 	https://www.compadre.org/osp/EJSS/4470/255.htm (Advanced Questions)
 	#
-	# 	position:		y(x,t) 	 = A sin (k x - ω t + φ)
+	# 	position:		y(x,t) 	 = A sin (k x - ω t + φ) since x is not a constant speed, we use max_velocity in its place
 	# 	velocity:		y'(x, t) = -Aω cos (k x - ω t + φ)
 	#	acceleration: 	y"(x, t) = -Aωω sin (k x - ω t + φ)
 	#
@@ -83,82 +95,99 @@ func move_and_rotate(delta):
 	#==========================================================================================
 	time += delta
 	
-	# lerp = linear interpretation: used to accelerate from BASE to GOAL by RATE
-	# TODO: account for starting motion AND stopping motion
+	# lerp = linear interpretation: used to accelerate from START to DESTINATION by WEIGHT
+	# https://www.reddit.com/r/godot/comments/lnqlnv/how_exactly_does_weight_work_in_lerp/
+	
 	if directional_input == Vector2.ZERO: amplitude = lerp(amplitude, max_amplitude / 2, linear_acceleration * delta)
 	else: amplitude = lerp(amplitude, max_amplitude, linear_acceleration * delta)
-	ssssjjjjj
+	
 	# when moving straight up or down we want the wave to move along the y axis (switch x and y) w/o offset 
 	if directional_input == Vector2.DOWN || directional_input == Vector2.UP:
 		max_vertical_velocity = directional_input.y * max_vertical_speed
-		max_horizontal_velocity = -amplitude * frequency * cos(wavenumber * max_vertical_velocity - frequency * time + phase) # velocity.x = x'(y, t)
-		# TODO: NOT WORKING # wave_acceleration = -amplitude * frequency * frequency * sin(wavenumber * max_vertical_velocity - frequency * time + phase) # acceleration.x = x"(y, t)
 		
-		velocity.x = lerp(velocity.x, max_horizontal_velocity, linear_acceleration * delta)
+		# TODO: Account for acceleration AND decceleration
+		# TODO: RESEARCH LERP ALTERNATIVES FOR WAVE ACCELERATION!! See damping
+		# https://godotengine.org/qa/137772/how-acceleration-and-deceleration-first-person-controller
+		# wave_acceleration = -amplitude * frequency * frequency * sin((wavenumber * max_vertical_velocity) - (frequency * time) + phase) # acceleration.x = x"(y, t)
+		
 		velocity.y = lerp(velocity.y, max_vertical_velocity, linear_acceleration * delta)
-
+		velocity.x = -amplitude * frequency * cos((wavenumber * max_vertical_velocity) - (frequency * time) + phase) # velocity.x = x'(y, t)
+		
 	# traditonal harmonic wave movement along x axis, adding vertical offset
 	else:	
 		# TODO: Ask Louie about how to calculate + incorporate velocity_y_offset
 		max_vertical_offset = directional_input.y * max_vertical_speed
 		velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, linear_acceleration * delta)
-		
 		max_horizontal_velocity = directional_input.x * max_horizontal_speed
-		max_vertical_velocity = -amplitude * frequency * cos(wavenumber * max_horizontal_velocity - frequency * time + phase) + velocity_y_offset # velocity y = y'(x, t)
-		# TODO: NOT WORKING # wave_acceleration = -amplitude * frequency * frequency * sin(wavenumber * max_horizontal_velocity - frequency * time + phase)
+		
+		# TODO: Account for acceleration AND decceleration
+		# TODO: RESEARCH LERP ALTERNATIVES FOR WAVE ACCELERATION!! See damping
+		# https://godotengine.org/qa/137772/how-acceleration-and-deceleration-first-person-controller
+		# wave_acceleration = -amplitude * frequency * frequency * sin((wavenumber * max_horizontal_velocity) - (frequency * time) + phase)
 		
 		velocity.x = lerp(velocity.x, max_horizontal_velocity, linear_acceleration * delta)
-		velocity.y = lerp(velocity.y, max_vertical_velocity, linear_acceleration * delta)
+		velocity.y = -amplitude * frequency * cos((wavenumber * max_horizontal_velocity) - (frequency * time) + phase) + velocity_y_offset # velocity y = y'(x, t)
 
+	# DEBUG #
+	# print("Position:	", global_position)
+	# print("Velocity:		", velocity)
+	# print("Acceleration:	", wave_acceleration * delta)
+	move_and_slide()
+
+
+# Called by _physics_process
+func turn(delta):	
+	pass
 	#===================================================================
 	#	ROTATE 
 	#	TODO: Improve smoothing; reconsider smooth_look_at targetPos arg
 	#===================================================================
-	if directional_input == Vector2.ZERO: # NO INPUT
-		if !$AnimatedSprite2D.flip_v: # If looking left
-			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
-		if $AnimatedSprite2D.flip_v: # If looking right
-			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(-max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
+#	if directional_input == Vector2.ZERO: # NO INPUT
+#		if !$AnimatedSprite2D.flip_v: # If looking left
+#			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
+#		if $AnimatedSprite2D.flip_v: # If looking right
+#			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(Vector2(-max_horizontal_speed, velocity.y).angle()), rotation_step * delta)
+#
+#	if directional_input.x > 0 && directional_input.y == 0: # RIGHT
+#		if velocity.x > 0: 
+#			$AnimatedSprite2D.flip_v = false
+#			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)
+#
+#	if directional_input.x > 0 && directional_input.y > 0: # DOWN RIGHT
+#		if velocity.x > 0: 
+#			$AnimatedSprite2D.flip_v = false
+#			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)	
+#
+#	if directional_input.x == 0 && directional_input.y > 0: # DOWN
+#		smooth_look_at($".", global_position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())), rotation_step * delta)
+#
+#	if directional_input.x < 0 && directional_input.y > 0: # DOWN LEFT
+#		if velocity.x < 0: 
+#			$AnimatedSprite2D.flip_v = true
+#			smooth_look_at($".", global_position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())), rotation_step * delta)
+#
+#	if directional_input.x < 0 && directional_input.y == 0: # LEFT
+#		if velocity.x < 0: 
+#			$AnimatedSprite2D.flip_v = true
+#			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
+#
+#	if directional_input.x < 0 && directional_input.y < 0: # UP LEFT
+#		if velocity.x < 0: 
+#			$AnimatedSprite2D.flip_v = true
+#			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
+#
+#	if directional_input.x == 0 && directional_input.y < 0: # UP
+#		smooth_look_at($".", global_position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())), rotation_step * delta)
+#
+#	if directional_input.x > 0 && directional_input.y < 0: # UP RIGHT
+#		if velocity.x > 0: 
+#			$AnimatedSprite2D.flip_v = false
+#			smooth_look_at($".", global_position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())), rotation_step * delta)
 
-	if directional_input.x > 0 && directional_input.y == 0: # RIGHT
-		if velocity.x > 0: 
-			$AnimatedSprite2D.flip_v = false
-			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)
 
-	if directional_input.x > 0 && directional_input.y > 0: # DOWN RIGHT
-		if velocity.x > 0: 
-			$AnimatedSprite2D.flip_v = false
-			smooth_look_at($".", global_position + Vector2.RIGHT.rotated(velocity.angle()), rotation_step * delta)	
-
-	if directional_input.x == 0 && directional_input.y > 0: # DOWN
-		smooth_look_at($".", global_position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())), rotation_step * delta)
-
-	if directional_input.x < 0 && directional_input.y > 0: # DOWN LEFT
-		if velocity.x < 0: 
-			$AnimatedSprite2D.flip_v = true
-			smooth_look_at($".", global_position + Vector2.DOWN.rotated((velocity.angle() - Vector2.DOWN.angle())), rotation_step * delta)
-
-	if directional_input.x < 0 && directional_input.y == 0: # LEFT
-		if velocity.x < 0: 
-			$AnimatedSprite2D.flip_v = true
-			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
-
-	if directional_input.x < 0 && directional_input.y < 0: # UP LEFT
-		if velocity.x < 0: 
-			$AnimatedSprite2D.flip_v = true
-			smooth_look_at($".", global_position + Vector2.LEFT.rotated((velocity.angle() - Vector2.LEFT.angle())), rotation_step * delta)
-
-	if directional_input.x == 0 && directional_input.y < 0: # UP
-		smooth_look_at($".", global_position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())), rotation_step * delta)
-
-	if directional_input.x > 0 && directional_input.y < 0: # UP RIGHT
-		if velocity.x > 0: 
-			$AnimatedSprite2D.flip_v = false
-			smooth_look_at($".", global_position + Vector2.UP.rotated((velocity.angle() - Vector2.UP.angle())), rotation_step * delta)
-
-	# TODO: Process collision
-	# move_and_collide or move_and_slide?
-	collision_results = move_and_collide(velocity * delta)
+# TODO: Process collision
+func collide():
+	pass
 
 
 #================================================

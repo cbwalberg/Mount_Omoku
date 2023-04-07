@@ -1,4 +1,4 @@
-.godot/
+src/Mount_Omoku_GP/.godot/*
 *.translation
 export_presets.cfg
-.mono/
+.mono/*

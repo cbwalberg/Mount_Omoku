@@ -6,18 +6,19 @@
 
 [node name="Test_Level" type="Node2D"]
 script = ExtResource("2")
-debug_draw_width = 10
+debug_draw_length = 60
+debug_draw_width = 50
 
 [node name="PlayerStartPos" type="Marker2D" parent="."]
 
 [node name="CameraStartPos" type="Marker2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1")]
-scale = Vector2(0.2, 0.2)
+motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(50, 50)
-zoom = Vector2(0.4, 0.4)
+zoom = Vector2(0.1, 0.1)
 script = ExtResource("3")
 
 [node name="DrawTimer" type="Timer" parent="."]
