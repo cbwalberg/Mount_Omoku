@@ -1,3 +1,5 @@
 res://default_env.tres
 res://Scenes/Levels/Test_Level.tscn
 res://Scripts/Shizennoki_Hatchling.gd
+res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn
+res://Scripts/Test_Level.gd

@@ -3,8 +3,6 @@ extends Node2D
 
 @export var debug_draw_length: int = 25 # length of draw_points array
 @export var debug_draw_width: int = 100
-
-
 var draw_points = [] # array containg snapshots of player position in time for debug drawing
 
 

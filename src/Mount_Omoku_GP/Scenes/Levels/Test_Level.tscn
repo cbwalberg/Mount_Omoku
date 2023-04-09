@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d02chtfx6po2r"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://br28nercbs46e" path="res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Test_Level.gd" id="2"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3"]
 
@@ -14,7 +14,6 @@ debug_draw_width = 50
 [node name="CameraStartPos" type="Marker2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1")]
-motion_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(50, 50)
