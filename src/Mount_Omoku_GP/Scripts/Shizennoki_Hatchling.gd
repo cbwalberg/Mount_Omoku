@@ -3,19 +3,19 @@ extends CharacterBody2D
 
 # Direction & Rotation
 @export var rotation_step : float = 5	# @export: variables exposed to engine editor for live testing
-@export var idle_radius: float = 500		# size of the no-turn radius around mouse position
 var direction_to_mouse: Vector2
 
 
 # Linear Speed
+@export var deccelerate_zone_radius: float = 1000		# TODO: BUILD IN BEACON
 @export var max_horizontal_linear_speed : int = 1500	# m/s
 @export var max_vertical_linear_speed : int = 1250	# m/s
 @export var linear_acceleration : float = 3.0	# m/s/s
 
-var velocity_y_offset : float
-var max_vertical_offset : float
-var max_vertical_velocity : float
-var max_horizontal_velocity : float
+var current_vertical_offset_velocity : float
+var target_vertical_offset_velocity : float
+var target_vertical_velocity : float
+var target_horizontal_velocity : float
 
 # Wave Speed
 @export var max_amplitude : float = 75 	# A: wave height
@@ -32,6 +32,10 @@ var wave_acceleration : float
 
 # Collision
 var collision_results: KinematicCollision2D
+
+
+# Switches
+var idle_moving : bool = false # idle = false; moving = true
 
 
 # Supporting Functions
@@ -52,6 +56,8 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # NO PHYSICS
 func _process(delta):
+#	if Input.is_action_just_pressed("print_debug"):
+#		print(global_position.distance_to(get_global_mouse_position())) #, "\n", get_global_mouse_position(), "\n\n")
 	pass # process_input()
 
 
@@ -64,11 +70,15 @@ func _physics_process(delta):
 
 
 # Called by _physics_process
+# TODO: Implement Beacon
 func turn(delta):
-	if global_position.distance_to(get_global_mouse_position()) > idle_radius:
+	if global_position.distance_to(get_global_mouse_position()) > deccelerate_zone_radius:
 		direction_to_mouse = get_global_mouse_position() - global_position	# Get the direction
+		
+		# TODO: Improve smoothing of sprite flip
 		if direction_to_mouse.x > 0.0: $AnimatedSprite2D.flip_v = false	# facing right
 		else: $AnimatedSprite2D.flip_v = true	# facing left
+		
 		smooth_look_at($".", get_global_mouse_position() + Vector2(0.0, velocity.y), rotation_step * delta)
 		$CollisionShape2D.rotation_degrees = get_rotation_degrees()
 
@@ -94,27 +104,30 @@ func move(delta):
 	#=============================================================================================
 	time += delta
 	
-	# lerp = linear interpretation: used to accelerate from START to DESTINATION by WEIGHT (NOT suitable for wave acceleration)
+	# lerp = linear interpretation: used to accelerate from START to DESTINATION by WEIGHT
+	# (NOT suitable for wave acceleration) as negative values change lerp funcitonality
 	# https://www.reddit.com/r/godot/comments/lnqlnv/how_exactly_does_weight_work_in_lerp/
 	
 	# Mouse controls
 	# Settle into the harmonic wave movement rhythm when moving generally towards mouse position
 	# TODO: Use direct control of movement (no wave) when turning at an angle greater than the above threshold
-	if global_position.distance_to(get_global_mouse_position()) > idle_radius:
-		max_horizontal_velocity = global_position.direction_to(get_global_mouse_position()).x * max_horizontal_linear_speed
+	if global_position.distance_to(get_global_mouse_position()) > deccelerate_zone_radius:
+		if $AnimatedSprite2D.flip_v: 
+			target_horizontal_velocity = max_horizontal_linear_speed * -1
+		else:
+			target_horizontal_velocity = max_horizontal_linear_speed
 		
-		# TODO: If velocity and direction_to mouse position are within a range, transition to wave movement. else, use direct movement   
-		# FIX: if compare_floats(velocity.normalized().x, global_position.direction_to(get_global_mouse_position()).normalized().x, 0.1):
-		max_vertical_offset = global_position.direction_to(get_global_mouse_position()).y * max_vertical_linear_speed
-		velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, linear_acceleration * delta)
+		# TODO: If velocity and direction_to mouse position are within a cone, transition to wave movement. else, use direct movement
+		target_vertical_offset_velocity = global_position.direction_to(get_global_mouse_position()).y * max_vertical_linear_speed
+		current_vertical_offset_velocity = lerp(current_vertical_offset_velocity, target_vertical_offset_velocity, linear_acceleration * delta)
 		# else:
-			# velocity_y_offset = lerp(velocity_y_offset, 0.0, linear_acceleration * delta)
+			# current_vertical_offset_velocity = lerp(current_vertical_offset_velocity, 0.0, linear_acceleration * delta)
 
-		velocity.x = lerp(velocity.x, max_horizontal_velocity, linear_acceleration * delta)
-		velocity.y = -max_amplitude * angular_frequency * cos((wavenumber * max_horizontal_linear_speed) - (angular_frequency * time) + phase) + velocity_y_offset
+		velocity.x = lerp(velocity.x, target_horizontal_velocity, linear_acceleration * delta)
+		velocity.y = -max_amplitude * angular_frequency * cos((wavenumber * max_horizontal_linear_speed) - (angular_frequency * time) + phase) + current_vertical_offset_velocity
 
 	else: # idle: position within idle_radius of mouse_position idle
-		velocity.x = lerp(velocity.x, 0.0, linear_acceleration * delta)
+		velocity.x = lerp(velocity.x, 0.0, delta)
 		velocity.y = -max_amplitude * angular_frequency * cos((wavenumber * max_horizontal_linear_speed) - (angular_frequency * time) + phase)
 	
 	# TODO: incorporate approximation

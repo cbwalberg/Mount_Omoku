@@ -3,3 +3,6 @@ res://Scenes/Levels/Test_Level.tscn
 res://Scripts/Shizennoki_Hatchling.gd
 res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn
 res://Scripts/Test_Level.gd
+res://Scenes/Shizennoki/beacon.tscn
+res://Scenes/Shizennoki/Beacon.tscn
+res://Scripts/beacon.gd
