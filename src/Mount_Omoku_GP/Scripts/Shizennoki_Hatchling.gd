@@ -7,7 +7,7 @@ var direction_to_mouse: Vector2
 
 
 # Linear Speed
-@export var deccelerate_zone_radius: float = 1000		# TODO: BUILD IN BEACON
+@export var deccelerate_zone_radius: float = 1000 # TODO: use collison shape
 @export var max_horizontal_linear_speed : int = 1500	# m/s
 @export var max_vertical_linear_speed : int = 1250	# m/s
 @export var linear_acceleration : float = 3.0	# m/s/s

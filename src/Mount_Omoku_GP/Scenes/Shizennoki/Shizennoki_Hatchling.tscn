@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0v5y8bjwe2sw"]
+[gd_scene load_steps=15 format=3 uid="uid://c0v5y8bjwe2sw"]
 
 [ext_resource type="Texture2D" uid="uid://by6b3hovpvasf" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_SS.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/Shizennoki_Hatchling.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://ciacnwn6x6smc" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_Head_SS.png" id="3"]
-[ext_resource type="PackedScene" uid="uid://cdyxiiq3xsxlt" path="res://Scenes/Shizennoki/beacon.tscn" id="4_siqak"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("1")
@@ -96,5 +95,3 @@ speed_scale = 1.6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(22.5, 10)
 shape = SubResource("10")
-
-[node name="Beacon" parent="." instance=ExtResource("4_siqak")]

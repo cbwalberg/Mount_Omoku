@@ -5,11 +5,14 @@ extends Node2D
 @export var debug_draw_width: int = 100
 var draw_points = [] # array containg snapshots of player position in time for debug drawing
 
+@export var beacon_start_offset: Vector2 = Vector2(500, 0)
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Camera2D.start($CameraStartPos.position)
 	$Player.start($PlayerStartPos.position)
+	$Beacon.start($PlayerStartPos.position + beacon_start_offset)
 	$DrawTimer.start()
 	draw_points.push_front($Player.global_position)
 
