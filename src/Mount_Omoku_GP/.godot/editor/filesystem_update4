@@ -1,8 +1,8 @@
 res://default_env.tres
-res://Scenes/Shizennoki/Beacon.tscn
-res://Scenes/Levels/Test_Level.tscn
-res://Scripts/Beacon.gd
+res://Scenes/Light_Beacon.tscn
+res://SpriteFrames/Light_Beacon_SF.tres
+res://SpriteFrames/Shizenoki_Hatchling_Head_SF.tres
 res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn
-res://Scripts/Shizennoki_Hatchling.gd
-res://Scenes/Beacon.tscn
+res://Scenes/Levels/Test_Level.tscn
+res://Scripts/Light_Beacon.gd
 res://Scripts/Test_Level.gd

@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d02chtfx6po2r"]
+[gd_scene load_steps=5 format=3 uid="uid://dgaq2ghm5pp7q"]
 
 [ext_resource type="PackedScene" uid="uid://c0v5y8bjwe2sw" path="res://Scenes/Shizennoki/Shizennoki_Hatchling.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Test_Level.gd" id="2"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3"]
-[ext_resource type="PackedScene" uid="uid://b0h4pwf3baw8a" path="res://Scenes/Beacon.tscn" id="4_uho1n"]
+[ext_resource type="PackedScene" uid="uid://b0h4pwf3baw8a" path="res://Scenes/Light_Beacon.tscn" id="4_uho1n"]
 
 [node name="Test_Level" type="Node2D"]
 script = ExtResource("2")
@@ -14,7 +14,8 @@ debug_draw_width = 50
 
 [node name="CameraStartPos" type="Marker2D" parent="."]
 
-[node name="Beacon" parent="." instance=ExtResource("4_uho1n")]
+[node name="LightBeacon" parent="." instance=ExtResource("4_uho1n")]
+position = Vector2(500, 0)
 
 [node name="Player" parent="." instance=ExtResource("1")]
 

@@ -1,0 +1,80 @@
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://dehted761dd54"]
+
+[ext_resource type="Texture2D" uid="uid://by6b3hovpvasf" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_SS.png" id="1_cntqv"]
+[ext_resource type="Texture2D" uid="uid://ciacnwn6x6smc" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_Head_SS.png" id="2_jyed8"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(0, 0, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(3840, 0, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(7680, 0, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(0, 2160, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(3840, 2160, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(7680, 2160, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(0, 4320, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1_cntqv")
+region = Rect2(3840, 4320, 3840, 2160)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("2_jyed8")
+region = Rect2(0, 0, 3840, 2160)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}],
+"loop": false,
+"name": &"static_head",
+"speed": 5.0
+}]

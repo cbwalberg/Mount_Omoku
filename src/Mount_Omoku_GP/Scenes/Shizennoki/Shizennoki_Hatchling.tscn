@@ -1,97 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0v5y8bjwe2sw"]
+[gd_scene load_steps=4 format=3 uid="uid://c0v5y8bjwe2sw"]
 
-[ext_resource type="Texture2D" uid="uid://by6b3hovpvasf" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_SS.png" id="1"]
 [ext_resource type="Script" path="res://Scripts/Shizennoki_Hatchling.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://ciacnwn6x6smc" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_Head_SS.png" id="3"]
+[ext_resource type="SpriteFrames" uid="uid://dehted761dd54" path="res://SpriteFrames/Shizenoki_Hatchling_Head_SF.tres" id="2_8pqrp"]
 
-[sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("1")
-region = Rect2(0, 0, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
-region = Rect2(3840, 0, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="3"]
-atlas = ExtResource("1")
-region = Rect2(7680, 0, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="4"]
-atlas = ExtResource("1")
-region = Rect2(0, 2160, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="5"]
-atlas = ExtResource("1")
-region = Rect2(3840, 2160, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="6"]
-atlas = ExtResource("1")
-region = Rect2(7680, 2160, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="7"]
-atlas = ExtResource("1")
-region = Rect2(0, 4320, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="8"]
-atlas = ExtResource("1")
-region = Rect2(3840, 4320, 3840, 2160)
-
-[sub_resource type="AtlasTexture" id="11"]
-atlas = ExtResource("3")
-region = Rect2(0, 0, 3840, 2160)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_posf0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("1")
-}, {
-"duration": 1.0,
-"texture": SubResource("2")
-}, {
-"duration": 1.0,
-"texture": SubResource("3")
-}, {
-"duration": 1.0,
-"texture": SubResource("4")
-}, {
-"duration": 1.0,
-"texture": SubResource("5")
-}, {
-"duration": 1.0,
-"texture": SubResource("6")
-}, {
-"duration": 1.0,
-"texture": SubResource("7")
-}, {
-"duration": 1.0,
-"texture": SubResource("8")
-}],
-"loop": true,
-"name": &"fly",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("11")
-}],
-"loop": false,
-"name": &"static_head",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="10"]
-size = Vector2(977.5, 296)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4cf2h"]
+radius = 110.0
+height = 450.0
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_posf0")
+sprite_frames = ExtResource("2_8pqrp")
 animation = &"static_head"
 speed_scale = 1.6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22.5, 10)
-shape = SubResource("10")
+position = Vector2(-10, 50)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4cf2h")
