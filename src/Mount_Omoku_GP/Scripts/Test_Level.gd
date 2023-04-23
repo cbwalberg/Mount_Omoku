@@ -9,7 +9,6 @@ var draw_points = [] # array containg snapshots of player position in time for d
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Camera2D.start($CameraStartPos.position)
 	$Player.start($PlayerStartPos.position)
 	$LightBeacon.start($PlayerStartPos.position + beacon_start_offset)
 	$DrawTimer.start()

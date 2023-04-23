@@ -2,6 +2,7 @@ extends Node2D
 
 
 @export var beacon_size: float = 25
+@export var beacon_lerp_weight: float = 10.0		# multiplied by delta
 @export var deccelerate_zone_radius: float = 1500
 
 var mouse_delta: Vector2 = Vector2.ZERO
@@ -26,9 +27,9 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	$AnimatedSprite2D.position = $AnimatedSprite2D.position.lerp(get_local_mouse_position(), 1.0)
-	queue_redraw()
-
-
-func _draw():
-	draw_arc($AnimatedSprite2D.position, deccelerate_zone_radius, 0.0, TAU, 50, Color.DARK_RED, 2.5) 
+	$AnimatedSprite2D.position = $AnimatedSprite2D.position.lerp(get_local_mouse_position(), beacon_lerp_weight * delta)
+#	queue_redraw()
+#
+#
+#func _draw():
+#	draw_arc($AnimatedSprite2D.position, deccelerate_zone_radius, 0.0, TAU, 50, Color.DARK_RED, 2.5) 
