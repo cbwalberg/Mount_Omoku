@@ -12,7 +12,7 @@ var draw_points = [] # array containg snapshots of player position in time for d
 func _ready():
 	$Camera2D.start($CameraStartPos.position)
 	$Player.start($PlayerStartPos.position)
-	$LightBeacon.start($PlayerStartPos.position + beacon_start_offset)
+	$LightBeacon.start($Player, $PlayerStartPos.position + beacon_start_offset)
 	$DrawTimer.start()
 	draw_points.push_front($Player.global_position)
 
@@ -33,4 +33,3 @@ func _on_DrawTimer_timeout():
 # Draw on the canvas
 func _draw():
 	if draw_points.size() > 1: draw_polyline(draw_points, Color.CADET_BLUE, debug_draw_width)
-	# draw_arc($LightBeacon.global_position, $LightBeacon.get_deccelerate_zone_radius(), 0.0, TAU, 50, Color.DARK_RED, 2.5) 
