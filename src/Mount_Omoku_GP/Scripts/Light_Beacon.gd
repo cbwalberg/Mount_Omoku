@@ -10,10 +10,10 @@ var mouse_speed: Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass	# TODO: set Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED) after creating Pause scene
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)	# TODO: change to MOUSE_MODE_CONFINED_HIDDEN after creating Pause scene
 
 
-func start(Player, pos):
+func start(pos):
 	global_position = pos
 	$Size/CollisionShape2D.apply_scale(Vector2(beacon_size, beacon_size))
 	$Decceleration_zone/CollisionShape2D.apply_scale(Vector2(deccelerate_zone_radius, deccelerate_zone_radius))
