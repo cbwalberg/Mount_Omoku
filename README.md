@@ -3,5 +3,4 @@
 Playable demos can be found in `executables/`. Unzip the export then run the `.exe` file (not the `.console.exe`)
 
 ## Controls
-WASD/Arrow Keys for the `_WASD_` executable
-Mouse for the `_mouse_` executable
+Use the WASD/Arrow Keys to move if playing the `_WASD_` executable, or the mouse if playing the `_mouse_` executable.
