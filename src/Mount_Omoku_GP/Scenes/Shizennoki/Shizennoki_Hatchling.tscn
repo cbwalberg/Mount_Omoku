@@ -11,16 +11,24 @@ height = 450.0
 motion_mode = 1
 script = ExtResource("2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(50, 50)
+zoom = Vector2(0.1, 0.1)
+
+[node name="Polygons" type="Node2D" parent="."]
+
+[node name="Head" type="Polygon2D" parent="Polygons"]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+
+[node name="DEPRECATED" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DEPRECATED"]
 sprite_frames = ExtResource("2_8pqrp")
 animation = &"static_head"
 speed_scale = 1.6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DEPRECATED"]
 position = Vector2(-10, 50)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_4cf2h")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-scale = Vector2(50, 50)
-zoom = Vector2(0.1, 0.1)

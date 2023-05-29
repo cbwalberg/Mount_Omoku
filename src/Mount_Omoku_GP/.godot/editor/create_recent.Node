@@ -1,5 +1,10 @@
+Node2D
+Node
+Skeleton2D
+Polygon2D
+CollisionPolygon2D
+AnimationPlayer
 Camera2D
 AnimatedSprite2D
 CollisionShape2D
 Area2D
-Node2D
