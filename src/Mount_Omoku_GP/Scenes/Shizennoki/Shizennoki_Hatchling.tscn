@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0v5y8bjwe2sw"]
+[gd_scene load_steps=3 format=3 uid="uid://c0v5y8bjwe2sw"]
 
 [ext_resource type="Script" path="res://Scripts/Shizennoki_Hatchling.gd" id="2"]
-[ext_resource type="SpriteFrames" uid="uid://dehted761dd54" path="res://SpriteFrames/Shizenoki_Hatchling_Head_SF.tres" id="2_8pqrp"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4cf2h"]
-radius = 110.0
-height = 450.0
+[ext_resource type="Texture2D" uid="uid://ciacnwn6x6smc" path="res://SpriteSheets/Shizenoki/Shizenoki_Hatchling_Head_SS.png" id="2_o6i6i"]
 
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
@@ -15,20 +11,18 @@ script = ExtResource("2")
 scale = Vector2(50, 50)
 zoom = Vector2(0.1, 0.1)
 
-[node name="Polygons" type="Node2D" parent="."]
+[node name="Body_Polygons" type="Node2D" parent="."]
 
-[node name="Head" type="Polygon2D" parent="Polygons"]
+[node name="Head" type="Polygon2D" parent="Body_Polygons"]
+position = Vector2(-1920, -1080)
+texture = ExtResource("2_o6i6i")
+polygon = PackedVector2Array(2116.79, 1105.34, 1967.94, 1092.37, 1909.16, 1040.46, 1835.11, 1033.21, 1803.05, 1006.87, 1758.78, 997.328, 1733.21, 1029.01, 1733.21, 1113.74, 1695.42, 1113.36, 1694.27, 1133.97, 1732.06, 1144.66, 1734.35, 1181.3, 1766.03, 1189.31, 1776.34, 1248.85, 1830.92, 1243.89, 1888.55, 1248.85, 1954.2, 1212.98, 2106.11, 1200.38, 2123.66, 1185.11, 2133.21, 1129.39)
+uv = PackedVector2Array(2116.79, 1105.34, 1967.94, 1092.37, 1909.16, 1040.46, 1835.11, 1033.21, 1803.05, 1006.87, 1758.78, 997.328, 1733.21, 1029.01, 1733.21, 1113.74, 1695.42, 1113.36, 1694.27, 1133.97, 1732.06, 1144.66, 1734.35, 1181.3, 1766.03, 1189.31, 1776.34, 1248.85, 1830.92, 1243.89, 1888.55, 1248.85, 1954.2, 1212.98, 2106.11, 1200.38, 2123.66, 1185.11, 2133.21, 1129.39)
+
+[node name="Polygon2D" type="Polygon2D" parent="Body_Polygons"]
+position = Vector2(-461, 0)
 
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
 
-[node name="DEPRECATED" type="Node2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="DEPRECATED"]
-sprite_frames = ExtResource("2_8pqrp")
-animation = &"static_head"
-speed_scale = 1.6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DEPRECATED"]
-position = Vector2(-10, 50)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_4cf2h")
+[node name="Tail" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(-1583, 35)

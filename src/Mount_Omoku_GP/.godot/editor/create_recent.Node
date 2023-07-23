@@ -1,7 +1,8 @@
+Bone2D
+Polygon2D
 Node2D
 Node
 Skeleton2D
-Polygon2D
 CollisionPolygon2D
 AnimationPlayer
 Camera2D
