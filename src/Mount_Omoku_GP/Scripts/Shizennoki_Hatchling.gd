@@ -75,11 +75,11 @@ func turn(delta):
 		direction_to_mouse = get_global_mouse_position() - global_position	# Get the direction
 		
 		# TODO: Improve smoothing of sprite flip
-		if direction_to_mouse.x > 0.0: $DEPRECATED/AnimatedSprite2D.flip_v = false	# facing right
-		else: $DEPRECATED/AnimatedSprite2D.flip_v = true	# facing left
+		# if direction_to_mouse.x > 0.0: $DEPRECATED/AnimatedSprite2D.flip_v = false	# facing right
+		# else: $DEPRECATED/AnimatedSprite2D.flip_v = true	# facing left
 		
 		smooth_look_at($".", get_global_mouse_position() + Vector2(0.0, velocity.y), rotation_step * delta)
-		$DEPRECATED/CollisionShape2D.rotation_degrees = get_rotation_degrees()
+		# $DEPRECATED/CollisionShape2D.rotation_degrees = get_rotation_degrees()
 
 
 # Called by _physics_process
@@ -111,10 +111,10 @@ func move(delta):
 	# Settle into the harmonic wave movement rhythm when moving generally towards mouse position
 	# TODO: Use direct control of movement (no wave) when turning at an angle greater than the above threshold
 	if global_position.distance_to(get_global_mouse_position()) > deccelerate_zone_radius:
-		if $DEPRECATED/AnimatedSprite2D.flip_v: 
-			target_horizontal_velocity = max_horizontal_linear_speed * -1
-		else:
-			target_horizontal_velocity = max_horizontal_linear_speed
+		# if $DEPRECATED/AnimatedSprite2D.flip_v: 
+			# target_horizontal_velocity = max_horizontal_linear_speed * -1
+		# else:
+		target_horizontal_velocity = max_horizontal_linear_speed
 		
 		# TODO: If velocity and direction_to mouse position are within a cone, transition to wave movement. else, use direct movement
 		target_vertical_offset_velocity = global_position.direction_to(get_global_mouse_position()).y * max_vertical_linear_speed
