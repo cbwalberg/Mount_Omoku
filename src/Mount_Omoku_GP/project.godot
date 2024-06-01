@@ -12,8 +12,12 @@ config_version=5
 
 config/name="Mount_Omoku"
 run/main_scene="res://Scenes/Levels/Test_Level.tscn"
-config/features=PackedStringArray("4.0")
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [gui]
 
