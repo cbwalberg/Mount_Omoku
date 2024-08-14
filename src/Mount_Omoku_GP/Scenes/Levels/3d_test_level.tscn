@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqgtwrjho1euq"]
+[gd_scene load_steps=8 format=3 uid="uid://cqgtwrjho1euq"]
 
 [ext_resource type="PackedScene" uid="uid://bho1wms0slpnc" path="res://Scenes/Shizennoki/Shizennoki_Hatchling_3d.tscn" id="1_7wq4t"]
 [ext_resource type="Script" path="res://Scripts/3d_test_level.gd" id="1_73ef5"]
-[ext_resource type="Script" path="res://Scripts/Shizennoki_Hatchling_3d.gd" id="3_e6u75"]
+[ext_resource type="PackedScene" uid="uid://jfoexio5dlsj" path="res://Assets/LoafbrrAssets/MineAndCavesSet/scenes/Ground/Ground_Cave/ground_cave_a.tscn" id="4_ku5ag"]
+[ext_resource type="PackedScene" uid="uid://c2m8n1m62lbwu" path="res://Assets/LoafbrrAssets/MineAndCavesSet/scenes/Ground/Ground_Cave/ground_cave_b.tscn" id="5_qtfmp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_81l7k"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -31,4 +32,9 @@ shadow_enabled = true
 
 [node name="Player_3D" parent="." instance=ExtResource("1_7wq4t")]
 input_ray_pickable = false
-script = ExtResource("3_e6u75")
+
+[node name="Ground_Cave_A" parent="." instance=ExtResource("4_ku5ag")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -10, 0)
+
+[node name="Ground_Cave_B" parent="." instance=ExtResource("5_qtfmp")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 43.3262, -10, -2.19393)
