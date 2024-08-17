@@ -1,0 +1,740 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqgtwrjho1euq"]
+
+[ext_resource type="Script" path="res://Scripts/Test_level_3d.gd" id="1_vw6oq"]
+[ext_resource type="PackedScene" uid="uid://ddbsnvb03k1xc" path="res://Scenes/Shizennoki/Shizennoki_Hatchling_3d.tscn" id="2_nonie"]
+[ext_resource type="PackedScene" uid="uid://jfoexio5dlsj" path="res://Assets/LoafbrrAssets/MineAndCavesSet/scenes/Ground/Ground_Cave/ground_cave_a.tscn" id="3_sb8ck"]
+[ext_resource type="PackedScene" uid="uid://c2m8n1m62lbwu" path="res://Assets/LoafbrrAssets/MineAndCavesSet/scenes/Ground/Ground_Cave/ground_cave_b.tscn" id="4_jqano"]
+[ext_resource type="PackedScene" uid="uid://ce3hjmrqhfih3" path="res://Scenes/Light Beacon/Light_Beacon_3d.tscn" id="5_7moi3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_81l7k"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_b0r2t"]
+sky_material = SubResource("ProceduralSkyMaterial_81l7k")
+
+[sub_resource type="Environment" id="Environment_r20te"]
+background_mode = 2
+sky = SubResource("Sky_b0r2t")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Test_Level_3D" type="Node3D"]
+script = ExtResource("1_vw6oq")
+
+[node name="Player" parent="." instance=ExtResource("2_nonie")]
+
+[node name="Skeleton3D" parent="Player/Dragon_rig" index="0"]
+bones/0/position = Vector3(0, 0, 0)
+bones/2/rotation = Quaternion(-1.05321e-08, 4.37114e-08, -4.60374e-16, 1)
+bones/3/rotation = Quaternion(0, 7.52316e-37, 3.17637e-22, 1)
+bones/4/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+bones/5/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+bones/6/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+bones/7/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+bones/8/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+
+[node name="Light_Beacon" parent="." instance=ExtResource("5_7moi3")]
+
+[node name="PlayerStartPos" type="Marker3D" parent="."]
+
+[node name="Cave Ground" type="Node3D" parent="."]
+
+[node name="Ground_Cave_A" parent="Cave Ground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -18.7624)
+
+[node name="Ground_Cave_A2" parent="Cave Ground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, 67.8856)
+
+[node name="Ground_Cave_A3" parent="Cave Ground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -106.79)
+
+[node name="Ground_Cave_A4" parent="Cave Ground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, 154.105)
+
+[node name="Ground_Cave_A5" parent="Cave Ground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -191.244)
+
+[node name="Ground_Cave_B" parent="Cave Ground" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 23.0605)
+
+[node name="Ground_Cave_B2" parent="Cave Ground" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, -65.8003)
+
+[node name="Ground_Cave_B3" parent="Cave Ground" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 107.082)
+
+[node name="Ground_Cave_B4" parent="Cave Ground" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, -150.888)
+
+[node name="Ground_Cave_B5" parent="Cave Ground" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 195.434)
+
+[node name="Cave Wall" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.255692, 0, 204.331)
+
+[node name="Wall_Cave_A" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -15, -18.7624)
+
+[node name="Wall_Cave_A2" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -15, 67.8856)
+
+[node name="Wall_Cave_A3" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -15, -106.79)
+
+[node name="Wall_Cave_A4" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -15, 154.105)
+
+[node name="Wall_Cave_A5" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -15, -191.244)
+
+[node name="Wall_Cave_B" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -15, 23.0605)
+
+[node name="Wall_Cave_B2" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -15, -65.8003)
+
+[node name="Wall_Cave_B3" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -15, 107.082)
+
+[node name="Wall_Cave_B4" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -15, -150.888)
+
+[node name="Wall_Cave_B5" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -15, 195.434)
+
+[node name="Wall_Cave_A6" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.6675, 419.113, 21.5789)
+
+[node name="Wall_Cave_A7" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.6675, 419.113, -65.0691)
+
+[node name="Wall_Cave_A8" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.6675, 419.113, 109.606)
+
+[node name="Wall_Cave_A9" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.6675, 419.113, -151.288)
+
+[node name="Wall_Cave_A10" parent="Cave Wall" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.6675, 419.113, 194.061)
+
+[node name="Wall_Cave_B6" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.22467, 419.113, -20.244)
+
+[node name="Wall_Cave_B7" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.22467, 419.113, 68.6168)
+
+[node name="Wall_Cave_B8" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.22467, 419.113, -104.266)
+
+[node name="Wall_Cave_B9" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.22467, 419.113, 153.705)
+
+[node name="Wall_Cave_B10" parent="Cave Wall" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, -10, -8.74228e-07, 0, 8.74228e-07, -10, 2.22467, 419.113, -192.617)
+
+[node name="Cave Ceiling" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 166.927, 0)
+
+[node name="Ceiling_Cave_A" parent="Cave Ceiling" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -18.7624)
+
+[node name="Ceiling_Cave_A2" parent="Cave Ceiling" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, 67.8856)
+
+[node name="Ceiling_Cave_A3" parent="Cave Ceiling" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -106.79)
+
+[node name="Ceiling_Cave_A4" parent="Cave Ceiling" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, 154.105)
+
+[node name="Ceiling_Cave_A5" parent="Cave Ceiling" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.6675, -10, -191.244)
+
+[node name="Ceiling_Cave_B" parent="Cave Ceiling" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 23.0605)
+
+[node name="Ceiling_Cave_B2" parent="Cave Ceiling" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, -65.8003)
+
+[node name="Ceiling_Cave_B3" parent="Cave Ceiling" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 107.082)
+
+[node name="Ceiling_Cave_B4" parent="Cave Ceiling" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, -150.888)
+
+[node name="Ceiling_Cave_B5" parent="Cave Ceiling" instance=ExtResource("4_jqano")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 2.22467, -10, 195.434)
+
+[node name="Cave Background" type="Node3D" parent="."]
+
+[node name="Background_Cave_A" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 0.86344, -18.7624)
+layers = 513
+
+[node name="Background_Cave_A2" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 0.86344, 67.8856)
+layers = 513
+
+[node name="Background_Cave_A3" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 0.86344, -106.79)
+layers = 513
+
+[node name="Background_Cave_A4" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 0.86344, 154.105)
+layers = 513
+
+[node name="Background_Cave_A5" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 0.86344, -191.244)
+layers = 513
+
+[node name="Background_Cave_B" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 0.420744, 23.0605)
+layers = 513
+
+[node name="Background_Cave_B2" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 0.420744, -65.8003)
+layers = 513
+
+[node name="Background_Cave_B3" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 0.420744, 107.082)
+layers = 513
+
+[node name="Background_Cave_B4" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 0.420744, -150.888)
+layers = 513
+
+[node name="Background_Cave_B5" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 0.420744, 195.434)
+layers = 513
+
+[node name="Background_Cave_A6" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 38.5313, -18.7624)
+layers = 513
+
+[node name="Background_Cave_A7" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 38.5313, 67.8856)
+layers = 513
+
+[node name="Background_Cave_A8" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 38.5313, -106.79)
+layers = 513
+
+[node name="Background_Cave_A9" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 38.5313, 154.105)
+layers = 513
+
+[node name="Background_Cave_A10" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 38.5313, -191.244)
+layers = 513
+
+[node name="Background_Cave_B6" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 38.0886, 23.0605)
+layers = 513
+
+[node name="Background_Cave_B7" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 38.0886, -65.8003)
+layers = 513
+
+[node name="Background_Cave_B8" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 38.0886, 107.082)
+layers = 513
+
+[node name="Background_Cave_B9" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 38.0886, -150.888)
+layers = 513
+
+[node name="Background_Cave_B10" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 38.0886, 195.434)
+layers = 513
+
+[node name="Background_Cave_A11" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 76.5582, -18.7624)
+layers = 513
+
+[node name="Background_Cave_A12" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 76.5582, 67.8856)
+layers = 513
+
+[node name="Background_Cave_A13" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 76.5582, -106.79)
+layers = 513
+
+[node name="Background_Cave_A14" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 76.5582, 154.105)
+layers = 513
+
+[node name="Background_Cave_A15" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 76.5582, -191.244)
+layers = 513
+
+[node name="Background_Cave_B11" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 76.1155, 23.0605)
+layers = 513
+
+[node name="Background_Cave_B12" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 76.1155, -65.8003)
+layers = 513
+
+[node name="Background_Cave_B13" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 76.1155, 107.082)
+layers = 513
+
+[node name="Background_Cave_B14" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 76.1155, -150.888)
+layers = 513
+
+[node name="Background_Cave_B15" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 76.1155, 195.434)
+layers = 513
+
+[node name="Background_Cave_A16" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 118.728, -18.7624)
+layers = 513
+
+[node name="Background_Cave_A17" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 118.728, 67.8856)
+layers = 513
+
+[node name="Backgound_Cave_A18" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 118.728, -106.79)
+layers = 513
+
+[node name="Background_Cave_A19" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 118.728, 154.105)
+layers = 513
+
+[node name="Background_Cave_A20" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 118.728, -191.244)
+layers = 513
+
+[node name="Background_Cave_B16" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 118.285, 23.0605)
+layers = 513
+
+[node name="Background_Cave_B17" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 118.285, -65.8003)
+layers = 513
+
+[node name="Background_Cave_B18" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 118.285, 107.082)
+layers = 513
+
+[node name="Background_Cave_B19" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 118.285, -150.888)
+layers = 513
+
+[node name="Background_Cave_B20" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 118.285, 195.434)
+layers = 513
+
+[node name="Background_Cave_A21" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 156.873, -18.7624)
+layers = 513
+
+[node name="Background_Cave_A22" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 156.873, 67.8856)
+layers = 513
+
+[node name="Background_Cave_A23" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 156.873, -106.79)
+layers = 513
+
+[node name="Background_Cave_A24" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 156.873, 154.105)
+layers = 513
+
+[node name="Background_Cave_A25" parent="Cave Background" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8658, 156.873, -191.244)
+layers = 513
+
+[node name="Background_Cave_B21" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 156.43, 23.0605)
+layers = 513
+
+[node name="Background_Cave_B22" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 156.43, -65.8003)
+layers = 513
+
+[node name="Background_Cave_B23" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 156.43, 107.082)
+layers = 513
+
+[node name="Background_Cave_B24" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 156.43, -150.888)
+layers = 513
+
+[node name="Background_Cave_B25" parent="Cave Background" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, 25.8766, 156.43, 195.434)
+layers = 513
+
+[node name="Cave Foreground" type="Node3D" parent="."]
+
+[node name="Foreground_Cave_A26" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -31.087, -18.7624)
+
+[node name="Foreground_Cave_A27" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -31.087, 67.8856)
+
+[node name="Foreground_Cave_A28" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -31.087, -106.79)
+
+[node name="Foreground_Cave_A29" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -31.087, 154.105)
+
+[node name="Foreground_Cave_A30" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -31.087, -191.244)
+
+[node name="Foreground_Cave_B26" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -31.5297, 23.0605)
+
+[node name="Foreground_Cave_B27" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -31.5297, -65.8003)
+
+[node name="Foreground_Cave_B28" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -31.5297, 107.082)
+
+[node name="Foreground_Cave_B29" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -31.5297, -150.888)
+
+[node name="Foreground_Cave_B30" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -31.5297, 195.434)
+
+[node name="Foreground_Cave_A31" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -69.7316, -18.7624)
+
+[node name="Foreground_Cave_A32" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -69.7316, 67.8856)
+
+[node name="Foreground_Cave_A33" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -69.7316, -106.79)
+
+[node name="Foreground_Cave_A34" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -69.7316, 154.105)
+
+[node name="Foreground_Cave_A35" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -69.7316, -191.244)
+
+[node name="Foreground_Cave_B31" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -70.1743, 23.0605)
+
+[node name="Foreground_Cave_B32" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -70.1743, -65.8003)
+
+[node name="Foreground_Cave_B33" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -70.1743, 107.082)
+
+[node name="Foreground_Cave_B34" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -70.1743, -150.888)
+
+[node name="Foreground_Cave_B35" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -70.1743, 195.434)
+
+[node name="Foreground_Cave_A36" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -107.685, -18.7624)
+
+[node name="Foreground_Cave_A37" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -107.685, 67.8856)
+
+[node name="Foreground_Cave_A38" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -107.685, -106.79)
+
+[node name="Foreground_Cave_A39" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -107.685, 154.105)
+
+[node name="Foreground_Cave_A40" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, -107.685, -191.244)
+
+[node name="Foreground_Cave_B36" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -108.127, 23.0605)
+
+[node name="Foreground_Cave_B37" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -108.127, -65.8003)
+
+[node name="Foreground_Cave_B38" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -108.127, 107.082)
+
+[node name="Foreground_Cave_B39" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -108.127, -150.888)
+
+[node name="Foreground_Cave_B40" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, -108.127, 195.434)
+
+[node name="Foreground_Cave_A41" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 275.113, -18.7624)
+
+[node name="Foreground_Cave_A42" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 275.113, 67.8856)
+
+[node name="Foreground_Cave_A43" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 275.113, -106.79)
+
+[node name="Foreground_Cave_A44" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 275.113, 154.105)
+
+[node name="Foreground_Cave_A45" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 275.113, -191.244)
+
+[node name="Foreground_Cave_B41" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 274.671, 23.0605)
+
+[node name="Foreground_Cave_B42" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 274.671, -65.8003)
+
+[node name="Foreground_Cave_B43" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 274.671, 107.082)
+
+[node name="Foreground_Cave_B44" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 274.671, -150.888)
+
+[node name="Foreground_Cave_B45" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 274.671, 195.434)
+
+[node name="Foreground_Cave_A46" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 236.469, -18.7624)
+
+[node name="Foreground_Cave_A47" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 236.469, 67.8856)
+
+[node name="Foreground_Cave_A48" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 236.469, -106.79)
+
+[node name="Foreground_Cave_A49" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 236.469, 154.105)
+
+[node name="Foreground_Cave_A50" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 236.469, -191.244)
+
+[node name="Foreground_Cave_B46" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 236.026, 23.0605)
+
+[node name="Foreground_Cave_B47" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 236.026, -65.8003)
+
+[node name="Foreground_Cave_B48" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 236.026, 107.082)
+
+[node name="Foreground_Cave_B49" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 236.026, -150.888)
+
+[node name="Foreground_Cave_B50" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 236.026, 195.434)
+
+[node name="Foreground_Cave_A51" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 198.515, -18.7624)
+
+[node name="Foreground_Cave_A52" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 198.515, 67.8856)
+
+[node name="Foreground_Cave_A53" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 198.515, -106.79)
+
+[node name="Foreground_Cave_A54" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 198.515, 154.105)
+
+[node name="Foreground_Cave_A55" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.5268, 198.515, -191.244)
+
+[node name="Foreground_Cave_B51" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 198.073, 23.0605)
+
+[node name="Foreground_Cave_B52" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 198.073, -65.8003)
+
+[node name="Foreground_Cave_B53" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 198.073, 107.082)
+
+[node name="Foreground_Cave_B54" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 198.073, -150.888)
+
+[node name="Foreground_Cave_B55" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, 9.99703, -0.243623, 0, 0, 0, 10, -20.516, 198.073, 195.434)
+
+[node name="Foreground_Cave_A56" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, -235.286)
+
+[node name="Foreground_Cave_A57" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, -235.286)
+
+[node name="Foreground_Cave_A58" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, -235.286)
+
+[node name="Foreground_Cave_A59" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, -235.286)
+
+[node name="Foreground_Cave_A60" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, -235.286)
+
+[node name="Foreground_Cave_B56" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, -235.729)
+
+[node name="Foreground_Cave_B57" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, -235.729)
+
+[node name="Foreground_Cave_B58" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, -235.729)
+
+[node name="Foreground_Cave_B59" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, -235.729)
+
+[node name="Foreground_Cave_B60" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, -235.729)
+
+[node name="Foreground_Cave_A61" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, -273.931)
+
+[node name="Foreground_Cave_A62" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, -273.931)
+
+[node name="Foreground_Cave_A63" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, -273.931)
+
+[node name="Foreground_Cave_A64" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, -273.931)
+
+[node name="Foreground_Cave_A65" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, -273.931)
+
+[node name="Foreground_Cave_B61" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, -274.374)
+
+[node name="Foreground_Cave_B62" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, -274.374)
+
+[node name="Foreground_Cave_B63" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, -274.374)
+
+[node name="Foreground_Cave_B64" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, -274.374)
+
+[node name="Foreground_Cave_B65" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, -274.374)
+
+[node name="Foreground_Cave_A66" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, -311.884)
+
+[node name="Foreground_Cave_A67" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, -311.884)
+
+[node name="Foreground_Cave_A68" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, -311.884)
+
+[node name="Foreground_Cave_A69" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, -311.884)
+
+[node name="Foreground_Cave_A70" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, -311.884)
+
+[node name="Foreground_Cave_B66" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, -312.326)
+
+[node name="Foreground_Cave_B67" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, -312.326)
+
+[node name="Foreground_Cave_B68" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, -312.326)
+
+[node name="Foreground_Cave_B69" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, -312.326)
+
+[node name="Foreground_Cave_B70" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, -312.326)
+
+[node name="Foreground_Cave_A71" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, 317.714)
+
+[node name="Foreground_Cave_A72" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, 317.714)
+
+[node name="Foreground_Cave_A73" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, 317.714)
+
+[node name="Foreground_Cave_A74" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, 317.714)
+
+[node name="Foreground_Cave_A75" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, 317.714)
+
+[node name="Foreground_Cave_B71" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, 317.271)
+
+[node name="Foreground_Cave_B72" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, 317.271)
+
+[node name="Foreground_Cave_B73" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, 317.271)
+
+[node name="Foreground_Cave_B74" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, 317.271)
+
+[node name="Foreground_Cave_B75" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, 317.271)
+
+[node name="Foreground_Cave_A76" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, 279.069)
+
+[node name="Foreground_Cave_A77" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, 279.069)
+
+[node name="Foreground_Cave_A78" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, 279.069)
+
+[node name="Foreground_Cave_A79" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, 279.069)
+
+[node name="Foreground_Cave_A80" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, 279.069)
+
+[node name="Foreground_Cave_B76" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, 278.626)
+
+[node name="Foreground_Cave_B77" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, 278.626)
+
+[node name="Foreground_Cave_B78" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, 278.626)
+
+[node name="Foreground_Cave_B79" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, 278.626)
+
+[node name="Foreground_Cave_B80" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, 278.626)
+
+[node name="Foreground_Cave_A81" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 95.4482, 241.116)
+
+[node name="Foreground_Cave_A82" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 8.80023, 241.116)
+
+[node name="Foreground_Cave_A83" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 183.476, 241.116)
+
+[node name="Foreground_Cave_A84" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, -77.4192, 241.116)
+
+[node name="Foreground_Cave_A85" parent="Cave Foreground" instance=ExtResource("3_sb8ck")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.5268, 267.93, 241.116)
+
+[node name="Foreground_Cave_B81" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 53.6253, 240.674)
+
+[node name="Foreground_Cave_B82" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 142.486, 240.674)
+
+[node name="Foreground_Cave_B83" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -30.3962, 240.674)
+
+[node name="Foreground_Cave_B84" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, 227.574, 240.674)
+
+[node name="Foreground_Cave_B85" parent="Cave Foreground" instance=ExtResource("4_jqano")]
+transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 9.99703, -0.243623, -4.37114e-07, -20.516, -118.748, 240.674)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r20te")
+
+[editable path="Player"]

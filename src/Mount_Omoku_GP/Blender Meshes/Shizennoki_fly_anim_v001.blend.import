@@ -13,8 +13,8 @@ dest_files=["res://.godot/imported/Shizennoki_fly_anim_v001.blend-1808fd1ef69b68
 
 [params]
 
-nodes/root_type=""
-nodes/root_name=""
+nodes/root_type="CharacterBody3D"
+nodes/root_name="Shizennoki_Hatchling"
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 meshes/ensure_tangents=true
@@ -34,7 +34,7 @@ _subresources={
 "Dragon_Squirming_Action": {
 "save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": true,
-"save_to_file/path": "",
+"save_to_file/path": "res://Animations/Shizennoki_Hatchling_Fly.res",
 "settings/loop_mode": 1,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,

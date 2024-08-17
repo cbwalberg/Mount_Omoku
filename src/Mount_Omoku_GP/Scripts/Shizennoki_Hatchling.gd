@@ -167,7 +167,6 @@
 ##
 ##			print("VERTICAL MOVEMENT:\t", velocity)
 ##		else:	# traditonal harmonic wave movement along x axis, adding vertical offset
-##			# TODO: Ask Louie about how to calculate + incorporate velocity_y_offset
 ##			max_vertical_offset = directional_input.y * max_vertical_linear_speed
 ##			velocity_y_offset = lerp(velocity_y_offset, max_vertical_offset, linear_acceleration * delta)
 ##			max_horizontal_velocity = directional_input.x * max_horizontal_linear_speed

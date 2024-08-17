@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ce3hjmrqhfih3"]
+
+[ext_resource type="Script" path="res://Scripts/Light_Beacon_3d.gd" id="1_ekvjd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3p4ka"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nvjcn"]
+
+[node name="Light_Beacon" type="OmniLight3D"]
+script = ExtResource("1_ekvjd")
+
+[node name="Size" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Size"]
+shape = SubResource("SphereShape3D_3p4ka")
+
+[node name="Decceleration_zone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Decceleration_zone"]
+shape = SubResource("SphereShape3D_nvjcn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
