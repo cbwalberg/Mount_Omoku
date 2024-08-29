@@ -5,7 +5,7 @@ extends Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Player.start($PlayerStartPos.position)
-	var beacon_start_offset_3d = Vector3(beacon_start_offset_2d.x, beacon_start_offset_2d.y, $PlayerStartPos.position.z)
+	var beacon_start_offset_3d = Vector3($PlayerStartPos.position.x, beacon_start_offset_2d.y, beacon_start_offset_2d.x)
 	$Light_Beacon.start($PlayerStartPos.position + beacon_start_offset_3d)
 
 

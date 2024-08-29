@@ -10,6 +10,7 @@ _data = {
 }
 
 [node name="Shizennoki_Hatchling" instance=ExtResource("1_gtfqn")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 motion_mode = 1
 script = ExtResource("1_gxvm4")
 
@@ -17,16 +18,8 @@ script = ExtResource("1_gxvm4")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Dragon_rig" index="0"]
-bones/0/position = Vector3(0, 4.37114e-08, -1)
-bones/0/rotation = Quaternion(1, 0, 0, -1.09278e-08)
-bones/1/rotation = Quaternion(1, 0, -4.37114e-08, -2.10642e-08)
-bones/2/rotation = Quaternion(0.0829788, 4.35606e-08, -3.62712e-09, 0.996551)
-bones/3/rotation = Quaternion(0.0205748, 6.53534e-24, 3.1757e-22, 0.999788)
-bones/4/rotation = Quaternion(-0.070708, 4.44847e-31, -3.75649e-30, 0.997497)
-bones/5/rotation = Quaternion(-0.0570826, 2.56798e-30, 4.93844e-31, 0.998369)
-bones/6/rotation = Quaternion(-0.0829788, 9.89483e-32, -2.96846e-31, 0.996551)
-bones/7/rotation = Quaternion(7.45058e-09, -3.00753e-30, -1.38051e-30, 1)
-bones/8/rotation = Quaternion(0.0797205, -1.33545e-30, -7.91379e-31, 0.996817)
+bones/0/rotation = Quaternion(0.707107, -3.09086e-08, -3.09086e-08, 0.707107)
+bones/1/rotation = Quaternion(1, -1.84149e-15, -7.54979e-08, -2.10642e-08)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
@@ -34,7 +27,7 @@ libraries = {
 }
 
 [node name="Camera3D" type="Camera3D" parent="." index="2"]
-transform = Transform3D(-4.37114e-08, 0.0871557, -0.996195, 0, 0.996195, 0.0871557, 1, 3.8097e-09, -4.35451e-08, -50, 5, 0)
+transform = Transform3D(-4.37114e-08, 0.0871557, -0.996195, 1, -3.97354e-08, -4.73548e-08, -4.37114e-08, -0.996195, -0.0871557, -50, 5, 0)
 projection = 1
 current = true
 fov = 100.0

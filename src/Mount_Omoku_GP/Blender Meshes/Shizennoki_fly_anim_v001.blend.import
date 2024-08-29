@@ -1830,6 +1830,11 @@ _subresources={
 "slice_99/start_frame": 0,
 "slices/amount": 0
 }
+},
+"nodes": {
+"PATH:Dragon_rig/Skeleton3D/GEO_Dragon": {
+"physics/body_type": 1
+}
 }
 }
 gltf/naming_version=1

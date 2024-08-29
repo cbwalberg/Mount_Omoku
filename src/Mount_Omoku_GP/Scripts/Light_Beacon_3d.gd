@@ -7,8 +7,8 @@ extends Node3D
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)	# TODO: change to MOUSE_MODE_CONFINED_HIDDEN after creating Pause scene
+# func _ready():
+	# Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)	# TODO: change to MOUSE_MODE_CONFINED_HIDDEN after creating Pause scene
 
 
 func start(pos):
@@ -19,9 +19,11 @@ func start(pos):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print("Beacon Position: ", global_position)
 	pass
 
 
 func _physics_process(delta):
-	var mouse_pos_3d = Vector3(get_viewport().get_mouse_position().x, get_viewport().get_mouse_position().y, global_position.z)
+	# TODO: FIX. get_viewport().get_mouse_position() not working as get_global_mouse_position() did to inform beacon position on screen
+	var mouse_pos_3d = Vector3(global_position.x, get_viewport().get_mouse_position().y, get_viewport().get_mouse_position().x)
 	global_position = global_position.lerp(mouse_pos_3d, beacon_lerp_weight * delta)

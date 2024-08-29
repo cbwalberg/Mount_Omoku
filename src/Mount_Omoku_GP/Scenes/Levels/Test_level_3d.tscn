@@ -25,16 +25,14 @@ script = ExtResource("1_vw6oq")
 [node name="Player" parent="." instance=ExtResource("2_nonie")]
 
 [node name="Skeleton3D" parent="Player/Dragon_rig" index="0"]
-bones/0/position = Vector3(0, 0, 0)
-bones/2/rotation = Quaternion(-1.05321e-08, 4.37114e-08, -4.60374e-16, 1)
-bones/3/rotation = Quaternion(0, 7.52316e-37, 3.17637e-22, 1)
-bones/4/rotation = Quaternion(0, 0, -1.80577e-37, 1)
-bones/5/rotation = Quaternion(0, 0, -1.80577e-37, 1)
-bones/6/rotation = Quaternion(0, 0, -1.80577e-37, 1)
-bones/7/rotation = Quaternion(0, 0, -1.80577e-37, 1)
-bones/8/rotation = Quaternion(0, 0, -1.80577e-37, 1)
+bones/0/rotation = Quaternion(0.707107, -3.09086e-08, -3.09086e-08, 0.707107)
+bones/1/rotation = Quaternion(1, -1.84149e-15, -7.54979e-08, -2.10642e-08)
+
+[node name="Camera3D" parent="Player" index="2"]
+current = false
 
 [node name="Light_Beacon" parent="." instance=ExtResource("5_7moi3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
 
 [node name="PlayerStartPos" type="Marker3D" parent="."]
 
@@ -732,6 +730,7 @@ transform = Transform3D(-0.243623, -9.99703, 0, -4.36984e-07, 1.06491e-08, -10, 
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
